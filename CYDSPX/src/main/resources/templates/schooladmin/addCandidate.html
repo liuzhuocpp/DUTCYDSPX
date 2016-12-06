@@ -161,11 +161,12 @@
 				                <div class="form-group">
 				                    <div class="input-group">
 				                        <span class="input-group-addon">国家/地区</span>
-			                        	<select class="select" name="state">
+			                        	<!--<select class="select" name="state">
 				                            <option v-for="option in stateList" v-bind:value="option.value">
 				                                {{ option }}
 				                              </option>
-				                        </select>
+				                        </select>  -->
+				                        <input type="text" class="form-control" name="state"></input>
 				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
@@ -268,11 +269,12 @@
 				                <div class="form-group">
 				                    <div class="input-group">
 				                        <span class="input-group-addon">层&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;次</span>
-				                    	<select class="select" name="edu_hierarchy">
+				                    <!--  	<select class="select" name="edu_hierarchy">
 				                            <option v-for="option in edu_hierarchyList" v-bind:value="option.value">
 				                                {{ option }}
 				                              </option>
-				                        </select>
+				                        </select>-->
+				                        <input type="text" class="form-control" name="edu_hierarchy"></input>
 				                    </div>
 				                </div>
 				            </div>
@@ -309,7 +311,7 @@
 				                <div class="form-group">
 				                    <div class="input-group">
 				                        <span class="input-group-addon">院校名称</span>
-				                        <input type="text" class="form-control" name="academy_name"></input>
+				                        <input type="text" class="form-control" name="academy_name" value="大连理工大学" readOnly="true"></input>
 				                    </div>
 				                </div>
 				            </div>
@@ -350,7 +352,8 @@
 				                <div class="form-group">
 				                    <div class="input-group">
 				                        <span class="input-group-addon">工作单位</span>
-				                        <input type="text" class="form-control" name="workunit"></input>
+				                          <input type="text" class="form-control" name="workunit" value="大连理工大学" readOnly="true"></input>
+				                    
 				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
@@ -359,7 +362,7 @@
 				                <div class="form-group">
 				                    <div class="input-group">
 				                        <span class="input-group-addon">原始推荐单位</span>
-				                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称"></input>
+				                          <input type="text" class="form-control" name="origin_recommand" value="大连理工大学" readOnly="true"></input>
 				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>

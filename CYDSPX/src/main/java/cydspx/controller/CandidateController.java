@@ -46,6 +46,7 @@ public class CandidateController {
 	
  	@Autowired
   	private CandidateHandler candidateHandler;
+ 	
   	@Autowired
   	private CandidateRelationHandler relationHandler;
   	
@@ -165,5 +166,5 @@ public class CandidateController {
 		int id=user.getUserId();
 		return superAdminHandler.changePassword(id, newPassword);
 	}
-	
+
 }
