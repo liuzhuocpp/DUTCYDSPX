@@ -54,9 +54,24 @@ public class CandidateController {
   	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
   		System.out.println("photo "+form.getPhotograph());
   		System.out.println("attach "+form.getAttachment());
+  		User user  = (User) session.getAttribute(SessionKey.USER_INFO.name()); 		
   		
-  		User user  = (User) session.getAttribute(SessionKey.USER_INFO.name());
+  		List<Candidate> candidates = candidateHandler.getCandidateList(user);
+  		if(candidates.size() >= 1)
+  		{
+//  			System.out.println("FFF000000000000000033333pppp");
+  			ResponseMessage msg = new ResponseMessage();
+  			msg.setCode(ResponseCode.FAIL.ordinal());
+  			msg.setMessage("候选人已经有存在，不可继续添加");
+  			return msg;
+  		}
+  		
+  		
+  		
   		int userId = user.getUserId(); 
+  		
+  		
+//  		userId
   		int candidate_id = candidateHandler.addCandidate(session, form,userId);
   		
   		/*

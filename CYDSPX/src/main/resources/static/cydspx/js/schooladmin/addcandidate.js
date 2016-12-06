@@ -225,8 +225,17 @@ $(document).ready(function(){
     		url:"/cydspx/candidate/addCandidate",
     		type:"get",
     		data:param,
-    		success:function(){
-    			alert("提交成功！");
+    		success:function(data){
+    			if(data.code == 1)
+    			{
+    				alert(data.message);
+    			}
+    			else 
+				{
+    				alert("添加候选人成功！");
+				}
+    			
+    			
     		}
     	});
     });
