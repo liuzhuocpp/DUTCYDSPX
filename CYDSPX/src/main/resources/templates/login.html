@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<title>登录页面</title>
+
+<link href="/cydspx/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/cydspx/css/login.css" rel="stylesheet" />
+<script type='text/javascript' src="/cydspx/js/jquery-3.1.0.min.js"></script>
+<script type='text/javascript' src="/cydspx/js/bootstrap.min.js"></script>	
+
+</head>
+<body>
+	<div class="form-wrapper">
+		<form action="" method="POST" class="form">
+			<h1 class="logo">创新创业专家评选系统</h1>
+			<div class="form-box">
+				<div class="form-group" >
+					<label for="userName">用户名</label> 
+					<input type="text" class="form-control" name="userName" id="userName"  placeholder="用户名"></input>
+				</div>
+	
+				<div class="form-group">
+					<label for="password">密码</label> 
+					<input type="password" class="form-control" name="password" id="password" placeholder="密码"></input>
+				</div>
+				
+				<div class="form-group">
+					<a href="">忘记密码</a>
+			<!--	<a href="/jsp/homepage/regist.jsp" style=" margin-left: 33%">联系管理员</a>  -->
+				</div>
+				<div class="form-group">
+					<button type="button" class="btn btn-primary" id="login">登录</button>
+				</div>
+			</div>	
+		</form>
+	</div>
+	<footer class="container">
+		<p>Copyright © 1986 - 2016 All rights reserved | <a href="http://chuangxin.dlut.edu.cn">大连理工大学创新创业学院版权所有</a> | GPLv3 <a href="http://gplv3.fsf.org/">Terms</a></p>
+	</footer>
+</body>
+<script type="text/javascript">
+$(document).on("click","#login", function (){
+  
+  
+  if(check())
+	{
+  	var userName = $("#userName").val();
+    var password = $("#password").val();
+  //alert(email+password);
+    var params={
+    		password : password,
+    		userName : userName
+    }
+    
+//     alert("1111");
+//     alert($("#username").val());
+//	   alert($("#phoneNumber").val());
+    
+	    $.ajax({
+	      url: '/cydspx/login',
+	      type: 'post',
+	      dataType: 'json',
+	      data: params,
+	      success: loginCallback
+	    });
+	}
+}); 
+function check(){
+	var password=$('#password').val();
+	var userName = $('#userName').val();
+	if(password=="")
+		{
+			alert("密码不能为空");
+			//$('#password').focus();
+			return false;
+		}
+	if(userName == ""){
+		alert("用户名不能为空");
+		return false;
+	}
+	return true;
+}
+function loginCallback(data)
+{   
+	//alert(99); 	
+	if(data.code == "0")
+	{    		
+		//alert("登陆成功");
+		window.location.href = "/cydspx/homepage";
+	}
+	else if(data.code == "1")
+		{
+		alert(data.message);
+		}
+}
+</script>	
+</html>
