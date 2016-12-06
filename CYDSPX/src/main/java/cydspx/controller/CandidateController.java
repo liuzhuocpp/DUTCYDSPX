@@ -67,6 +67,15 @@ public class CandidateController {
   			return msg;
   		}
   		
+  		if(!form.check())
+  		{
+  			ResponseMessage msg = new ResponseMessage();
+  			msg.setCode(ResponseCode.FAIL.ordinal());
+  			msg.setMessage("有必填项未填写，请继续填写");
+  			return msg;
+  		}
+  		
+  		
   		
   		
   		int userId = user.getUserId(); 
