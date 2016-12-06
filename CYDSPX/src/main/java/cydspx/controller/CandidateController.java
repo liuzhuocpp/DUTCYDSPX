@@ -55,6 +55,7 @@ public class CandidateController {
   	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
   		System.out.println("photo "+form.getPhotograph());
   		System.out.println("attach "+form.getAttachment());
+  		System.out.println("getVocation "+form.getVocation());
   		User user  = (User) session.getAttribute(SessionKey.USER_INFO.name()); 		
   		
   		List<Candidate> candidates = candidateHandler.getCandidateList(user);
@@ -67,11 +68,12 @@ public class CandidateController {
   			return msg;
   		}
   		
-  		if(!form.check())
+  		List<String> notInputFileds = form.check();
+  		if(!notInputFileds.isEmpty())
   		{
   			ResponseMessage msg = new ResponseMessage();
   			msg.setCode(ResponseCode.FAIL.ordinal());
-  			msg.setMessage("有必填项未填写，请继续填写");
+  			msg.setMessage("有必填项" + notInputFileds + " 未填写，请继续填写");
   			return msg;
   		}
   		
@@ -87,8 +89,8 @@ public class CandidateController {
   		/*
   		 * 行业
   		 */
-  		if (form.getVocations() != null) {
-  			for (String vocation : form.getVocations()) {
+  		if (form.getVocation() != null) {
+  			for (String vocation : form.getVocation()) {
   				relationHandler.addVocationItem(candidate_id, vocation);
   			}
   		}

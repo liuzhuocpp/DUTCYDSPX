@@ -1,5 +1,8 @@
 package cydspx.mode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class CandidateForm extends Candidate{
 	private String[] service_intention;			//服务意向
-	private String[] vocations;					//行业
+	private String[] vocation;					//行业
 	private String achievement1;
 	private String prize_year1;
 	private String prize_level1;
@@ -40,28 +43,29 @@ public class CandidateForm extends Candidate{
 		return true;
 	}
 	
-	public boolean check()
+	public List<String> check()
 	{
-		if(!check(this.photograph)) return false;
-		if(!check(this.attachment)) return false;
-		if(!check(this.name)) return false;
-		if(!check(this.nation)) return false;
-		if(!check(this.politics)) return false;
-		if(!check(this.cert_type)) return false;
+		List<String> res = new ArrayList<String>();
+		if(!check(this.photograph)) res.add("照片");
+		if(!check(this.attachment)) res.add("优秀创新创业导师人才库导师推荐表");
+		if(!check(this.name)) res.add("名称");
+		if(!check(this.nation)) res.add("民族");
+		if(!check(this.politics)) res.add("政治面貌");
+		if(!check(this.cert_type)) res.add("证书类型");
 //		if(!check(this.sex)) return false;
-		if(!check(this.birthday)) return false;
-		if(!check(this.state)) return false;
-		if(!check(this.cert_no)) return false;
-		if(!check(this.mobile_phone)) return false;
-		if(!check(this.email)) return false;
-		if(!check(this.tel_phone)) return false;
-		if(!check(this.job)) return false;
-		if(!check(this.workunit)) return false;
-		if(!check(this.origin_recommand)) return false;
-		if(!check(this.service_intention)) return false;
-		if(!check(this.vocations)) return false;
+		if(!check(this.birthday)) res.add("生日");
+		if(!check(this.state)) res.add("国家");
+		if(!check(this.cert_no)) res.add("证件编号");
+		if(!check(this.mobile_phone)) res.add("移动电话");
+		if(!check(this.email))res.add("邮箱");
+		if(!check(this.tel_phone)) res.add("固定电话");
+		if(!check(this.job)) res.add("职务");
+		if(!check(this.workunit)) res.add("工作单位");
+		if(!check(this.origin_recommand)) res.add("原始推荐单位");
+		if(!check(this.service_intention)) res.add("服务意向");
+		if(!check(this.vocation)) res.add("行业");
 		
-		return true;
+		return res;
 	}
 	
 }
