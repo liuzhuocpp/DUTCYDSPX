@@ -26,7 +26,7 @@ public class PageController {
 			return "/expert/expert";
 		}
 		else if(user.getUserType()==UserType.SCHOOLADMIN.ordinal()){
-			return "";
+			return "/schooladmin/addCandidate";
 		}
 		else if(user.getUserType()==UserType.SUPERADMIN.ordinal()){
 			return "/superAdmin/superAdmin";
@@ -39,6 +39,7 @@ public class PageController {
 	@RequestMapping("/cydspx/superAdmin/getPage")
 	public String getSuperAdminPage( @RequestParam String pageName)
 	{
+		System.out.println("hhhhhhhhhhh");
 		return "/superAdmin/" + pageName;
 	}
 	
@@ -53,6 +54,14 @@ public class PageController {
 	public String checkCandidatePage()
 	{
 		return "/schoolAdmin/checkCandidate";
+	}
+	
+	
+	
+	@RequestMapping("/cydspx/schoolAdmin/passwordChange")
+	public String passwordChange()
+	{
+		return "/schoolAdmin/passwordChange";
 	}
 	
 }

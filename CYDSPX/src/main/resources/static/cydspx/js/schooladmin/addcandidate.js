@@ -2,8 +2,7 @@ $(document).ready(function(){
     var vue = null;
     var url = "/cydspx/attachment";
     var imgpath = "/cydspx/image/candidate.jpg";
-    
-    //获取表单中的下拉列表数据
+
 	$.ajax({
 		url:"/cydspx/candidate/getFormChoices",
 		type: "get",
@@ -18,10 +17,10 @@ $(document).ready(function(){
 	            sexList: sexList,
 	            nationList:data.nations,
 	            politicsList:politicsList,
-	            stateList:[],
+	            stateList:data.stateList,
 	            cert_typeList:cert_typeList,
-	            edu_typeList:[],
-	            edu_hierarchyList:[],
+	            edu_typeList:data.edu_typeList,
+	            edu_hierarchyList:data.edu_hierarchyList,
 	            subject_categoryList:data.subject_categories,
 	            degree_typeList:data.degree_types,
 	            vocationList:data.vocations,
@@ -103,7 +102,7 @@ $(document).ready(function(){
 				$("#fileInput").show();
 				$("#attachement_file").fileinput({
 					language : 'zh',
-					allowedFileExtensions : ["word", "pdf"], 
+					allowedFileExtensions : ["pdf"], 
 					uploadUrl : url+"file",
 					uploadAsync : true,
 					browseClass:"btn btn-primary",
@@ -155,7 +154,6 @@ $(document).ready(function(){
 		} );
 	}
     
-    
     var sexList = [
         {value:1,text:"男"},
         {value:2,text:"女"}
@@ -197,9 +195,40 @@ $(document).ready(function(){
         {value:"province", text:"省级"},
         {value:"college", text:"校级"}
     ]; 
-    
+    var stateList = [{text:"中国"},{text:"美国"}];
+    var edu_typeList = ["硕士","博士"];
+    var edu_hierarchyList = [{text:"高级"},{text:"中级"}];
+    function initFun(data){
+	    var vue = new Vue({
+	        el: ".content",
+	        data: {
+	            sexList: sexList,
+	            nationList:data.nations,
+	            politicsList:politicsList,
+	            stateList:stateList,
+	            cert_typeList:cert_typeList,
+	            edu_typeList:edu_typeList,
+	            edu_hierarchyList:edu_hierarchyList,
+	            subject_categoryList:data.subject_categories,
+	            degree_typeList:data.degree_types,
+	            vocationList:data.vocations,
+	            titleList:data.titles,
+	            service_intentionList:data.services,
+	            prize_levelList:prize_levelList,
+	            elect_levelList:elect_levelList
+	        }
+	    });
+    }
     $(document).on("click", "#submitBtn", function(){
-    	alert($("#applyForm").serialize());
+    	var param = ($("#applyForm").serialize());
+    	$.ajax({
+    		url:"/cydspx/candidate/addCandidate",
+    		type:"get",
+    		data:param,
+    		success:function(){
+    			alert("提交成功！");
+    		}
+    	});
     });
     
     //表单验证
@@ -487,32 +516,32 @@ $(document).ready(function(){
         	error.appendTo(element.parent());
         	error.addClass("errormessage");
         },
-        submitHandle:function(form){
-            var param = ($("#applyForm").serialize());
-        	$.ajax({
-        		url:"/cydspx/candidate/addCandidate",
-        		type:"post",
-        		data:param,
-        		success:function(){
-        			alert("提交成功！");
-        		}
-        	});
-        }
+//        submitHandle:function(form){
+//            var param = ($("#applyForm").serialize());
+//        	$.ajax({
+//        		url:"/cydspx/candidate/addCandidate",
+//        		type:"get",
+//        		data:param,
+//        		success:function(){
+//        			alert("提交成功！");
+//        		}
+//        	});
+//        }
     });
     $.validator.addMethod("postcode", function(value, ele, params){
         var postcode = /^[0-9]{6}$/;
         return this.optional(ele) || (postcode.test(value));
     }, "请填写正确的邮编！");
     $.validator.addMethod("birthday", function(value, ele, params){
-        var birthday = /^[1-2]\\d{3}(0?[1-9]||1[0-2])(0?[1-9]||[1-2][1-9]||3[0-1])$/;
+        var birthday = /^[1-2][0-9]{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][1-9]|3[0-1])$/;
         return this.optional(ele) || (birthday.test(value));
     }, "格式必须如20161007");
     $.validator.addMethod("year", function(value, ele, params){
-        var year = /^[1-2]\\d{3}$/;
+        var year = /^[1-2][0-9]{3}$/;
         return this.optional(ele) || (year.test(value));
     }, "格式必须如2016");
     $.validator.addMethod("tel_phone", function(value, ele, params){
-    	var tel_phone = /^[0-9]{3,5}-[0-9]{7-10}$/;
+    	var tel_phone = /^[0-9]{3,5}-[0-9]{7,10}$/;
     	return this.optional(ele) || (tel_phone.test(value));
     }, "格式必须为“区号-电话号码”")
 
